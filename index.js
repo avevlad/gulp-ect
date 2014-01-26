@@ -21,7 +21,7 @@ module.exports = function (opt) {
         file.path = gutil.replaceExtension(file.path, opt.outExt);
       });
     } catch (e) {
-      console.warn('Error gulp-ect: ' + e.message);
+      gutil.log(gutil.colors.red('Error gulp-ect: ' + e.message));
     }
     callback(null, file);
   });
