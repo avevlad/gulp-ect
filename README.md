@@ -13,6 +13,7 @@ npm install --save-dev gulp-ect
 
 ## Example
 
+js
 ```js
 var ect = require('ect');
 
@@ -25,6 +26,19 @@ gulp.task('ect', function(){
 gulp.task('default', function(){
   gulp.run('ect');
 });
+```
+
+coffee
+```coffee
+ect = require('ect')
+gulp.task 'ect', ->
+  gulp
+    .src('./src/*.ect')
+    .pipe(ect())
+    .pipe gulp.dest('./out')
+
+gulp.task 'default', ->
+  gulp.run "ect"
 ```
 
 ## API
