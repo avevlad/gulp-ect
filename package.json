@@ -1,6 +1,6 @@
 {
   "name": "gulp-ect",
-  "version": "1.0.0",
+  "version": "1.3.0",
   "description": "Gulp plugin to compile ect.js template engine.",
   "license": "MIT",
   "repository": "avevlad/gulp-ect",
@@ -9,6 +9,12 @@
     "email": "dev@vld.me",
     "url": "http://vld.me"
   },
+  "contributors": [
+    {
+      "name": "Matthew Drake",
+      "email": "mdrake@mediadrake.com"
+    }
+  ],
   "engines": {
     "node": ">=0.10.0"
   },
