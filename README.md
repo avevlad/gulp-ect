@@ -15,6 +15,7 @@ npm install --save-dev gulp-ect
 
 js
 ```js
+var gulp = require('gulp');
 var ect = require('ect');
 
 gulp.task('ect', function(){
@@ -23,9 +24,7 @@ gulp.task('ect', function(){
       .pipe(gulp.dest('./out'));
 });
 
-gulp.task('default', function(){
-  gulp.run('ect');
-});
+gulp.task('default', ['ect']);
 ```
 
 coffee
@@ -37,8 +36,7 @@ gulp.task 'ect', ->
     .pipe(ect())
     .pipe gulp.dest('./out')
 
-gulp.task 'default', ->
-  gulp.run "ect"
+gulp.task 'default', ['ect']
 ```
 
 ## API
@@ -70,12 +68,13 @@ The template context data.
 
 If a function is passed, use the format function(fileName,callback) and fire callback as callback(data):
 
-	gulp.src(['./src/*.ect','./src/inner/*.ect'])
-      .pipe(ect({data:function(filename,cb){
-      	cb({foo:"bar"});
-      }}))
-      .pipe(gulp.dest('./out'));
-
+~~~js
+  gulp.src(['./src/*.ect', './src/inner/*.ect'])
+    .pipe(ect({data: function (filename, cb) {
+      cb({foo: "bar"});
+    }}))
+    .pipe(gulp.dest('./out'));
+~~~
 
 ## License
 
