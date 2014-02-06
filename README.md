@@ -61,6 +61,20 @@ Default: `.html`
 
 The extensions output files.
 
+#### options.data
+
+Type: `Function or Object`  
+Default: `{}`  
+
+The template context data. 
+
+If a function is passed, use the format function(fileName,callback) and fire callback as callback(data):
+
+	gulp.src(['./src/*.ect','./src/inner/*.ect'])
+      .pipe(ect({data:function(filename,cb){
+      	cb({foo:"bar"});
+      }}))
+      .pipe(gulp.dest('./out'));
 
 
 ## License
