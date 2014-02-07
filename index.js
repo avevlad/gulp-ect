@@ -25,8 +25,8 @@ module.exports = function (opt) {
 
       var relativePath = path.relative(file.base, file.path);
       
-      
-      
+      relativePath = gutil.replaceExtension(path.basename(relativePath), "");
+      relativePath = relativePath.replace(new RegExp(""+opt.ext+"$"),"");
       //relative path for dynamic locals creation
       dataCallback(relativePath, function (data) {
     	  
