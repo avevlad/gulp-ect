@@ -21,12 +21,11 @@ module.exports = function (opt) {
     //compile locals async
     try {
       var filePath = file.base;
-      var fileCwd = file.cwd;
-      var fileName = gutil.replaceExtension(path.basename(file.path), "");
+      
 
-
-      var relativeBase = path.relative(fileCwd, filePath);
-      var relativePath = path.join(relativeBase, fileName);
+      var relativePath = path.relative(file.base, file.path);
+      
+      
       
       //relative path for dynamic locals creation
       dataCallback(relativePath, function (data) {
