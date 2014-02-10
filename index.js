@@ -2,21 +2,26 @@ var es = require('event-stream');
 var gutil = require('gulp-util');
 var path = require('path');
 var ect = require('ect');
+var async = require('async');
 
 module.exports = function (opt) {
 
   opt = opt || {};
   if (!opt.ext) opt.ext = '.ect';
   if (!opt.data) opt.data = {};
+  if (!opt.router) opt.router = function(name,cb){
+	  cb([name]);
+  };
   if (!opt.outExt) opt.outExt = '.html';
-
-  return es.map(function (file, callback) {
-    //function for compile locals async
-    var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
+  var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
       process.nextTick(function () {
         cb(opt.data);
       });
     };
+  
+  return es.map(function (file, callback) {
+    //function for compile locals async
+    
 
     //compile locals async
     try {
@@ -24,10 +29,12 @@ module.exports = function (opt) {
       
 
       var relativePath = path.relative(file.base, file.path);
-      
-      relativePath = gutil.replaceExtension(path.basename(relativePath), "");
+            
       relativePath = relativePath.replace(new RegExp(""+opt.ext+"$"),"");
       //relative path for dynamic locals creation
+      
+      router(relativePath,function(){});
+      
       dataCallback(relativePath, function (data) {
     	  
         try {
