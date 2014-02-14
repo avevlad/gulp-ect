@@ -9,9 +9,7 @@ module.exports = function (opt) {
   opt = opt || {};
   if (!opt.ext) opt.ext = '.ect';
   if (!opt.data) opt.data = {};
-  if (!opt.router) opt.router = function(name,cb){
-	  cb([name]);
-  };
+  
   if (!opt.outExt) opt.outExt = '.html';
   var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
       process.nextTick(function () {
@@ -33,7 +31,7 @@ module.exports = function (opt) {
       relativePath = relativePath.replace(new RegExp(""+opt.ext+"$"),"");
       //relative path for dynamic locals creation
       
-      router(relativePath,function(){});
+      
       
       dataCallback(relativePath, function (data) {
     	  
