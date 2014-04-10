@@ -35,6 +35,7 @@ module.exports = function (opt) {
           });
 
           html.render(fileName, data, function (error, html) {
+            error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
             file.contents = new Buffer(html);
             file.path = gutil.replaceExtension(file.path, opt.outExt);
           });
