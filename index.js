@@ -20,21 +20,17 @@ module.exports = function (opt) {
 
     //compile locals async
     try {
-      var filePath = file.base;
-      var fileCwd = file.cwd;
-      var fileName = gutil.replaceExtension(path.basename(file.path), "");
-
-      var relativeBase = path.relative(fileCwd, filePath);
-      var relativePath = path.join(relativeBase, fileName);
+      var fileDir = path.dirname(file.path);
+      var relativePath = path.relative(file.cwd, fileDir);
       //relative path for dynamic locals creation
       dataCallback(relativePath, function (data) {
         try {
           var html = ect({
-            root: filePath,
+            root: fileDir,
             ext: opt.ext
           });
 
-          html.render(fileName, data, function (error, html) {
+          html.render(file.path, data, function (error, html) {
             error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
             file.contents = new Buffer(html);
             file.path = gutil.replaceExtension(file.path, opt.outExt);
