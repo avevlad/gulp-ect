@@ -13,6 +13,7 @@ module.exports = function (opt) {
   return es.map(function (file, callback) {
     //function for compile locals async
     var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
+      
       process.nextTick(function () {
         cb(opt.data);
       });
@@ -35,7 +36,8 @@ module.exports = function (opt) {
           });
 
           html.render(fileName, data, function (error, html) {
-            error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
+            if(error) gutil.log(gutil.colors.red('Error gulp-ect detail: ' + error));
+            //error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
             file.contents = new Buffer(html);
             file.path = gutil.replaceExtension(file.path, opt.outExt);
           });
