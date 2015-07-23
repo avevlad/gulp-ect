@@ -16,7 +16,7 @@ npm install --save-dev gulp-ect
 js
 ```js
 var gulp = require('gulp');
-var ect = require('ect');
+var ect = require('gulp-ect');
 
 gulp.task('ect', function(){
   gulp.src('./src/*.ect')
@@ -29,7 +29,7 @@ gulp.task('default', ['ect']);
 
 coffee
 ```coffee
-ect = require('ect')
+ect = require('gulp-ect')
 gulp.task 'ect', ->
   gulp
     .src('./src/*.ect')
