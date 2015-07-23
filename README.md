@@ -29,7 +29,7 @@ gulp.task('default', ['ect']);
 
 coffee
 ```coffee
-ect = require('ect')
+ect = require('gulp-ect')
 gulp.task 'ect', ->
   gulp
     .src('./src/*.ect')
