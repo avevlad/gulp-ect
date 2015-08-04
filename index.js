@@ -21,7 +21,7 @@ module.exports = function (opt) {
 
     //compile locals async
     try {
-      var filePath = file.base;
+      var filePath = path.dirname(file.path);
       var fileCwd = file.cwd;
       var fileName = gutil.replaceExtension(path.basename(file.path), "");
 
