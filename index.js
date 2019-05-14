@@ -3,19 +3,18 @@ var gutil = require('gulp-util');
 var path = require('path');
 var ect = require('ect');
 
-module.exports = function (opt) {
+var gulpEct = (options) => {
 
-  opt = opt || {};
-  if (!opt.ext) opt.ext = '.ect';
-  if (!opt.data) opt.data = {};
-  if (!opt.outExt) opt.outExt = '.html';
+  options = options || {};
+  if (!options.ext) options.ext = '.ect';
+  if (!options.data) options.data = {};
+  if (!options.outExt) options.outExt = '.html';
 
   return es.map(function (file, callback) {
     //function for compile locals async
-    var dataCallback = typeof(opt.data) == 'function' ? opt.data : function (file, cb) {
-      
+    var dataCallback = typeof(options.data) == 'function' ? options.data : function (file, cb) {
       process.nextTick(function () {
-        cb(opt.data);
+        cb(options.data);
       });
     };
 
@@ -32,24 +31,25 @@ module.exports = function (opt) {
         try {
           var html = ect({
             root: filePath,
-            ext: opt.ext
+            ext: options.ext
           });
 
           html.render(fileName, data, function (error, html) {
-            if(error) gutil.log(gutil.colors.red('Error gulp-ect detail: ' + error));
-            //error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
+            if (error) throw new Error('[Error gulp-ect] ' + error);
             file.contents = new Buffer(html);
-            file.path = gutil.replaceExtension(file.path, opt.outExt);
+            file.path = gutil.replaceExtension(file.path, options.outExt);
           });
         } catch (e) {
           gutil.log(gutil.colors.red('Error gulp-ect: ' + e.message));
+          return callback(e);
         }
         callback(null, file);
       });
     } catch (e) {
       gutil.log(gutil.colors.red('Error Locals gulp-ect: ' + e.message));
+      return callback(e);
     }
-
-
   });
 };
+
+module.exports = gulpEct;
