@@ -38,6 +38,7 @@ module.exports = function (option) {
           html.render(fileName, data, function (error, html) {
             if (error) throw new Error('[Error gulp-ect] ' + error);
             error && gutil.log(gutil.colors.red('Error gulp-ect: ' + error.message));
+            console.log('hoge');
             file.contents = new Buffer(html);
             file.path = gutil.replaceExtension(file.path, option.outExt);
           });
